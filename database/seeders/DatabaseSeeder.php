@@ -14,20 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//        $adminRole = Role::firstOrCreate(['name' => 'admin']);
-//
-//        $accessDevPermission = Permission::firstOrCreate(['name' => 'dev']);
-//
-//        $adminRole->givePermissionTo($accessDevPermission);
-//
-//        $adminUser = User::first(); // 获取第一个用户
-//
-//        if ($adminUser) {
-//            if (!$adminUser->hasRole('admin')) {
-//                $adminUser->assignRole('admin');
-//            }
-//        } else {
-//            echo "No user\n";
-//        }
+        User::factory(50)->create();
     }
 }

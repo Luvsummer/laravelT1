@@ -49,6 +49,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'permission:admin'])->group(function () {
     Route::get('/dev', [SqlQueryController::class, 'index'])->name('admin.dev');
     Route::post('/dev/execute', [SqlQueryController::class, 'execute'])->name('admin.dev.execute');
+    Route::post('/dev/export-csv', [SqlQueryController::class, 'exportCsv'])->name('admin.dev.export-csv');
+    Route::post('/dev/export-json', [SqlQueryController::class, 'exportJson'])->name('admin.dev.export-json');
 });
 
 require __DIR__.'/auth.php';
