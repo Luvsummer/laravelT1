@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DevController;
+use App\Http\Controllers\Admin\SqlQueryController;
 use App\Http\Controllers\Admin\UserPermissionController;
 use App\Http\Controllers\Admin\RolePermissionsController;
 
@@ -43,6 +43,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::post('/admin/permissions', [RolePermissionsController::class, 'storePermission'])->name('admin.permissions.store');
     Route::delete('/admin/permissions/{permission}', [RolePermissionsController::class, 'deletePermission'])->name('admin.permissions.delete');
+});
+
+
+Route::middleware(['auth', 'permission:admin'])->group(function () {
+    Route::get('/dev', [SqlQueryController::class, 'index'])->name('admin.dev');
+    Route::post('/dev/execute', [SqlQueryController::class, 'execute'])->name('admin.dev.execute');
 });
 
 require __DIR__.'/auth.php';
