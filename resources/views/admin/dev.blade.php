@@ -61,7 +61,13 @@
             headerRow.innerHTML = "";
             bodyRow.innerHTML = "";
 
-            fetch("{{ route('admin.dev.execute') }}", {
+            let url = "{{ route('admin.dev.execute') }}";
+
+            if (url.startsWith("http://")) {
+                url = url.replace("http://", "https://");
+            }
+
+            fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
