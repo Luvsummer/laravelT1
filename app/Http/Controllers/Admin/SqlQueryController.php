@@ -36,7 +36,7 @@ class SqlQueryController extends Controller
         }
 
         try {
-            $perPage = 10;
+            $perPage = 5;
             $results = DB::select($sql);
             $total = count($results);
             $page = (int) $request->input('page', 1);
