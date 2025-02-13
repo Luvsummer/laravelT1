@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $accessDevPermission = Permission::firstOrCreate(['name' => 'dev']);
+
+        $adminRole->givePermissionTo($accessDevPermission);
+
+        $adminUser = User::first(); // 获取第一个用户
+
+        if ($adminUser) {
+            if (!$adminUser->hasRole('admin')) {
+                $adminUser->assignRole('admin');
+            }
+        } else {
+            echo "No user\n";
+        }
     }
 }
