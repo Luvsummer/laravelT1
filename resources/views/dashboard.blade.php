@@ -10,6 +10,15 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
+
+                    <!-- 仅 admin 显示权限管理按钮 -->
+                    @if(auth()->check() && auth()->user()->hasRole('admin'))
+                        <div class="mt-4">
+                            <a href="{{ route('admin.users') }}" class="bg-blue-500 text-white px-4 py-2 rounded">
+                                Manage User Permissions
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

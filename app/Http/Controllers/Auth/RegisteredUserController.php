@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -43,6 +44,16 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        Role::firstOrCreate(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'user']);
+
+        // 首次注册用户给予admin权限 其余先给user权限
+        if(User::count() == 1){
+            $user->assignRole('admin');
+        }else{
+            $user->assignRole('user');
+        }
 
         Auth::login($user);
 
