@@ -133,11 +133,21 @@
         });
 
         document.getElementById("export-csv").addEventListener("click", function () {
-            exportData("{{ route('admin.dev.export-csv') }}");
+            let url = "{{ route('admin.dev.export-csv') }}";
+
+            if (url.startsWith("http://")) {
+                url = url.replace("http://", "https://");
+            }
+            exportData(url);
         });
 
         document.getElementById("export-json").addEventListener("click", function () {
-            exportData("{{ route('admin.dev.export-json') }}");
+            let url = "{{ route('admin.dev.export-json') }}";
+
+            if (url.startsWith("http://")) {
+                url = url.replace("http://", "https://");
+            }
+            exportData(url);
         });
 
         function exportData(url) {
